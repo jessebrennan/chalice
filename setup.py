@@ -7,21 +7,19 @@ with open('README.rst') as readme_file:
 
 
 install_requires = [
-    'click>=6.6,<8.0',
-    'botocore>=1.12.86,<2.0.0',
-    'typing==3.6.4;python_version<"3.7"',
+    'click>=6.6,<7.0',
+    'botocore>=1.10.48,<2.0.0',
+    'typing==3.6.4',
     'six>=1.10.0,<2.0.0',
-    'pip>=9,<19.4',
-    'attrs>=17.4.0,<20.0.0',
+    'pip>=9,<11',
+    'attrs==17.4.0',
     'enum-compat>=0.0.2',
     'jmespath>=0.9.3,<1.0.0',
-    'wheel',
-    'setuptools'
 ]
 
 setup(
     name='chalice',
-    version='1.12.0+1',
+    version='1.12.0+2',
     description="Microframework",
     long_description=README,
     author="James Saryerwinnie",
@@ -50,6 +48,5 @@ setup(
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
     ],
 )
