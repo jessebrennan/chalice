@@ -695,7 +695,7 @@ class TerraformGenerator(TemplateGenerator):
             resource.resource_name] = {
                 'statement_id': resource.resource_name,
                 'action': 'lambda:InvokeFunction',
-                'function_name': resource.lambda_function.function_name,
+                'function_name': self._fref(resource.lambda_function, attr='function_name'),
                 'principal': 's3.amazonaws.com',
                 'source_arn': 'arn:aws:s3:::%s' % resource.bucket
         }
@@ -708,7 +708,7 @@ class TerraformGenerator(TemplateGenerator):
                     "arn:aws:sqs:%(region)s:%(account_id)s:%(queue)s",
                     queue=resource.queue),
                 'batch_size': resource.batch_size,
-                'function_name': resource.lambda_function.function_name,
+                'function_name': self._fref(resource.lambda_function, attr='function_name'),
         }
 
     def _generate_snslambdasubscription(self, resource, template):
@@ -729,7 +729,7 @@ class TerraformGenerator(TemplateGenerator):
         }
         template['resource'].setdefault('aws_lambda_permission', {})[
             resource.resource_name] = {
-                'function_name': resource.lambda_function.function_name,
+                'function_name': self._fref(resource.lambda_function, attr='function_name'),
                 'action': 'lambda:InvokeFunction',
                 'principal': 'sns.amazonaws.com',
                 'source_arn': topic_arn
@@ -771,7 +771,7 @@ class TerraformGenerator(TemplateGenerator):
         template['resource'].setdefault(
             'aws_lambda_permission', {})[
                 resource.resource_name] = {
-                    'function_name': resource.lambda_function.function_name,
+                    'function_name': self._fref(resource.lambda_function, attr='function_name'),
                     'action': 'lambda:InvokeFunction',
                     'principal': 'events.amazonaws.com',
                     'source_arn': "${aws_cloudwatch_event_rule.%s.arn}" % (
@@ -869,7 +869,7 @@ class TerraformGenerator(TemplateGenerator):
 
         template['resource'].setdefault('aws_lambda_permission', {})[
             resource.resource_name + '_invoke'] = {
-                'function_name': resource.lambda_function.function_name,
+                'function_name': self._fref(resource.lambda_function, attr='function_name'),
                 'action': 'lambda:InvokeFunction',
                 'principal': 'apigateway.amazonaws.com',
                 'source_arn':
